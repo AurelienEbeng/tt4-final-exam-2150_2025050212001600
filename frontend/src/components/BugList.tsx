@@ -22,6 +22,7 @@ const BugList = () => {
           .get<Bug[]>("/list")
           .then((response) => {
             setBugs(response.data);
+            console.log(response.data)
             setLoading(false);
           })
           .catch((error) => {

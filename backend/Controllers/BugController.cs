@@ -16,11 +16,9 @@ namespace backend.Controllers {
 
         
         [HttpGet("list")]
-        public async Task<IActionResult> List()
+        public async Task<ActionResult<IEnumerable<Bug>>> GetTasks()
         {
-            var bugs = _context.Bugs.ToListAsync();
-            return Ok(new {bugs});
-            
+            return await _context.Bugs.ToListAsync();
         }
 
 
