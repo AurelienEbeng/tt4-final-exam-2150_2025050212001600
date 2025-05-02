@@ -5,6 +5,19 @@ using backend.Data;
 // Builder
 var builder = WebApplication.CreateBuilder(args);
 
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin() 
+                   .AllowAnyMethod() 
+                   .AllowAnyHeader(); 
+        });
+});
+//
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection"); // string
 
 builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseSqlite(connectionString));
@@ -29,8 +42,7 @@ if(!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseCors("AllowAllOrigins");
 
 app.MapControllers();
 
